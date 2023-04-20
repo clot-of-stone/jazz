@@ -1,6 +1,6 @@
 # примеры API-запросов
 
-@baseUrl = https://localhost:8000/api
+@baseUrl = http://localhost:8000/api
 
 # получение объявлений
 GET {{baseUrl}}/advertisements/
@@ -11,19 +11,19 @@ Content-Type: application/json
 # создание объявления
 POST {{baseUrl}}/advertisements/
 Content-Type: application/json
-Authorization: Token 902ef055a9ac93f18327f1f9c45ab059f1a62c7d
+Authorization: Token de47d3b2594dab309d6b7fb18a03db8fd842f219
 
 {
-  "title": "Шкаф IKEA",
-  "description": "Срочно"
+  "title": "Лебедь",
+  "description": "Бумажный"
 }
 
 ###
 
-# попытка поменять объявление
-PATCH {{baseUrl}}/advertisements/1/
+# попытка поменять статус объявления
+PATCH {{baseUrl}}/advertisements/14/
 Content-Type: application/json
-Authorization: Token 902ef055a9ac93f18327f1f9c45ab059f1a62c7d
+Authorization: Token de47d3b2594dab309d6b7fb18a03db8fd842f219
 
 {
   "status": "CLOSED"
@@ -38,5 +38,21 @@ Content-Type: application/json
 ###
 
 # фильтрация по дате
-GET {{baseUrl}}/advertisements/?created_at_before=2020-10-01
+GET {{baseUrl}}/advertisements/?created_at_before=2023-11-11
 Content-Type: application/json
+
+###
+
+# фильтрация по статусу
+GET {{baseUrl}}/advertisements/?status=CLOSED
+Content-Type: application/json
+
+# проверка создания нового объявления после закрытия старого
+POST {{baseUrl}}/advertisements/
+Content-Type: application/json
+Authorization: Token de47d3b2594dab309d6b7fb18a03db8fd842f219
+
+{
+  "title": "Портфель",
+  "description": "Кожаный"
+}
